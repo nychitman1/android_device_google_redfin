@@ -39,6 +39,7 @@
 #define CAM_FLASH_DEVICE_TYPE (CAM_DEVICE_TYPE_BASE + 11)
 #define CAM_EEPROM_DEVICE_TYPE (CAM_DEVICE_TYPE_BASE + 12)
 #define CAM_OIS_DEVICE_TYPE (CAM_DEVICE_TYPE_BASE + 13)
+#define CAM_CUSTOM_DEVICE_TYPE (CAM_DEVICE_TYPE_BASE + 14)
 #define CAM_REQ_MGR_HDL_IDX_POS 8
 #define CAM_REQ_MGR_HDL_IDX_MASK ((1 << CAM_REQ_MGR_HDL_IDX_POS) - 1)
 #define CAM_REQ_MGR_GET_HDL_IDX(hdl) (hdl & CAM_REQ_MGR_HDL_IDX_MASK)
@@ -50,6 +51,7 @@
 #define V4L_EVENT_CAM_REQ_MGR_ERROR 1
 #define V4L_EVENT_CAM_REQ_MGR_SOF_BOOT_TS 2
 #define V4L_EVENT_CAM_REQ_MGR_VSYNC_TS 3
+#define V4L_EVENT_CAM_REQ_MGR_CUSTOM_EVT 4
 #define CAM_REQ_MGR_SOF_EVENT_SUCCESS 0
 #define CAM_REQ_MGR_SOF_EVENT_ERROR 1
 #define CAM_REQ_MGR_LINK_ACTIVATE 0
@@ -107,6 +109,8 @@ struct cam_req_mgr_sched_request {
   int32_t link_hdl;
   int32_t bubble_enable;
   int32_t sync_mode;
+  int32_t additional_timeout;
+  int32_t reserved;
   int64_t req_id;
 };
 struct cam_req_mgr_sync_mode {
@@ -138,6 +142,7 @@ struct cam_req_mgr_link_control {
 #define CAM_REQ_MGR_CACHE_OPS (CAM_COMMON_OPCODE_MAX + 12)
 #define CAM_REQ_MGR_LINK_CONTROL (CAM_COMMON_OPCODE_MAX + 13)
 #define CAM_REQ_MGR_LINK_V2 (CAM_COMMON_OPCODE_MAX + 14)
+#define CAM_REQ_MGR_REQUEST_DUMP (CAM_COMMON_OPCODE_MAX + 15)
 #define CAM_MEM_FLAG_HW_READ_WRITE (1 << 0)
 #define CAM_MEM_FLAG_HW_READ_ONLY (1 << 1)
 #define CAM_MEM_FLAG_HW_WRITE_ONLY (1 << 2)
@@ -151,6 +156,7 @@ struct cam_req_mgr_link_control {
 #define CAM_MEM_FLAG_CACHE (1 << 10)
 #define CAM_MEM_FLAG_HW_SHARED_ACCESS (1 << 11)
 #define CAM_MEM_FLAG_CDSP_OUTPUT (1 << 12)
+#define CAM_MEM_FLAG_DISABLE_DELAYED_UNMAP (1 << 13)
 #define CAM_MEM_MMU_MAX_HANDLE 16
 #define CAM_MEM_BUFQ_MAX 1024
 #define CAM_MEM_MGR_SECURE_BIT_POS 15
@@ -209,6 +215,8 @@ struct cam_mem_cache_ops_cmd {
 #define CAM_REQ_MGR_ERROR_TYPE_REQUEST 1
 #define CAM_REQ_MGR_ERROR_TYPE_BUFFER 2
 #define CAM_REQ_MGR_ERROR_TYPE_RECOVERY 3
+#define CAM_REQ_MGR_ERROR_TYPE_SOF_FREEZE 4
+#define CAM_REQ_MGR_ERROR_TYPE_FULL_RECOVERY 5
 struct cam_req_mgr_error_msg {
   uint32_t error_type;
   uint32_t request_id;
@@ -220,8 +228,19 @@ struct cam_req_mgr_frame_msg {
   uint64_t request_id;
   uint64_t frame_id;
   uint64_t timestamp;
+  uint64_t bf_timestamp;
   int32_t link_hdl;
   uint32_t sof_status;
+  uint32_t frame_id_meta;
+  uint32_t reserved;
+};
+struct cam_req_mgr_custom_msg {
+  uint32_t custom_type;
+  uint64_t request_id;
+  uint64_t frame_id;
+  uint64_t timestamp;
+  int32_t link_hdl;
+  uint64_t custom_data;
 };
 struct cam_req_mgr_message {
   int32_t session_hdl;
@@ -229,6 +248,7 @@ struct cam_req_mgr_message {
   union {
     struct cam_req_mgr_error_msg err_msg;
     struct cam_req_mgr_frame_msg frame_msg;
+    struct cam_req_mgr_custom_msg custom_msg;
   } u;
 };
 #endif

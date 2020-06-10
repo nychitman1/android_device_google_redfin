@@ -111,6 +111,7 @@
 #define IPA_IOCTL_FNR_COUNTER_QUERY 76
 #define IPA_IOCTL_SET_FNR_COUNTER_INFO 77
 #define IPA_IOCTL_GET_NAT_IN_SRAM_INFO 78
+#define IPA_IOCTL_APP_CLOCK_VOTE 79
 #define IPA_HDR_MAX_SIZE 64
 #define IPA_RESOURCE_NAME_MAX 32
 #define IPA_NUM_PROPS_MAX 35
@@ -1262,6 +1263,7 @@ enum ipacm_hw_index_counter_virtual_type {
 #define IPA_IOC_FNR_COUNTER_QUERY _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_FNR_COUNTER_QUERY, struct ipa_ioc_flt_rt_query)
 #define IPA_IOC_SET_FNR_COUNTER_INFO _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_SET_FNR_COUNTER_INFO, struct ipa_ioc_fnr_index_info)
 #define IPA_IOC_GET_NAT_IN_SRAM_INFO _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_GET_NAT_IN_SRAM_INFO, struct ipa_nat_in_sram_info)
+#define IPA_IOC_APP_CLOCK_VOTE _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_APP_CLOCK_VOTE, uint32_t)
 #define TETH_BRIDGE_IOC_MAGIC 0xCE
 #define TETH_BRIDGE_IOCTL_SET_BRIDGE_MODE 0
 #define TETH_BRIDGE_IOCTL_SET_AGGR_PARAMS 1
@@ -1304,6 +1306,11 @@ struct ipa_nat_in_sram_info {
   uint32_t sram_mem_available_for_nat;
   uint32_t nat_table_offset_into_mmap;
   uint32_t best_nat_in_sram_size_rqst;
+};
+enum ipa_app_clock_vote_type {
+  IPA_APP_CLK_DEVOTE = 0,
+  IPA_APP_CLK_VOTE = 1,
+  IPA_APP_CLK_RESET_VOTE = 2,
 };
 #define TETH_BRIDGE_IOC_SET_BRIDGE_MODE _IOW(TETH_BRIDGE_IOC_MAGIC, TETH_BRIDGE_IOCTL_SET_BRIDGE_MODE, struct teth_ioc_set_bridge_mode *)
 #define TETH_BRIDGE_IOC_SET_AGGR_PARAMS _IOW(TETH_BRIDGE_IOC_MAGIC, TETH_BRIDGE_IOCTL_SET_AGGR_PARAMS, struct teth_ioc_aggr_params *)

@@ -88,6 +88,7 @@ struct sde_drm_de_v1 {
 #define SDE_DYN_EXP_DISABLE 0x1
 #define SDE_DRM_QSEED3LITE
 #define SDE_DRM_QSEED4
+#define SDE_DRM_INLINE_PREDOWNSCALE
 struct sde_drm_scaler_v2 {
   uint32_t enable;
   uint32_t dir_en;
@@ -119,6 +120,10 @@ struct sde_drm_scaler_v2 {
   uint32_t unsharp_mask_blend;
   uint32_t de_blend;
   uint32_t flags;
+  uint32_t pre_downscale_x_0;
+  uint32_t pre_downscale_x_1;
+  uint32_t pre_downscale_y_0;
+  uint32_t pre_downscale_y_1;
 };
 #define SDE_MAX_DS_COUNT 2
 #define SDE_DRM_DESTSCALER_ENABLE 0x1

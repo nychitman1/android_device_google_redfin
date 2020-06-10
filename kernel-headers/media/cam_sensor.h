@@ -214,9 +214,10 @@ struct cam_cmd_get_sensor_data {
   uint64_t query_data_handle;
 } __attribute__((packed));
 struct cam_flash_init {
-  uint8_t flash_type;
-  uint16_t reserved;
+  uint32_t flash_type;
+  uint8_t reserved;
   uint8_t cmd_type;
+  uint16_t reserved1;
 } __attribute__((packed));
 struct cam_flash_set_rer {
   uint32_t count;

@@ -88,6 +88,8 @@
 #define CAM_ISP_GENERIC_BLOB_TYPE_IFE_CORE_CONFIG 7
 #define CAM_ISP_GENERIC_BLOB_TYPE_VFE_OUT_CONFIG 8
 #define CAM_ISP_GENERIC_BLOB_TYPE_BW_CONFIG_V2 9
+#define CAM_ISP_GENERIC_BLOB_TYPE_CSID_CONFIG 10
+#define CAM_ISP_GENERIC_BLOB_TYPE_SENSOR_DIMENSION_CONFIG 11
 #define CAM_ISP_GENERIC_BLOB_TYPE_CSID_QCFA_CONFIG 12
 #define CAM_ISP_VC_DT_CFG 4
 #define CAM_ISP_IFE0_HW 0x1
@@ -95,6 +97,7 @@
 #define CAM_ISP_IFE0_LITE_HW 0x4
 #define CAM_ISP_IFE1_LITE_HW 0x8
 #define CAM_ISP_IFE2_LITE_HW 0x10
+#define CAM_ISP_IFE2_HW 0x100
 #define CAM_ISP_PXL_PATH 0x1
 #define CAM_ISP_PPP_PATH 0x2
 #define CAM_ISP_LCR_PATH 0x4
@@ -106,6 +109,10 @@
 #define CAM_ISP_USAGE_LEFT_PX 1
 #define CAM_ISP_USAGE_RIGHT_PX 2
 #define CAM_ISP_USAGE_RDI 3
+#define CAM_ISP_ACQ_CUSTOM_NONE 0
+#define CAM_ISP_ACQ_CUSTOM_PRIMARY 1
+#define CAM_ISP_ACQ_CUSTOM_SECONDARY 2
+#define CAM_IFE_CSID_RDI_MAX 4
 struct cam_isp_dev_cap_info {
   uint32_t hw_type;
   uint32_t reserved;
@@ -288,6 +295,18 @@ struct cam_fe_config {
   uint32_t unpacker_cfg;
   uint32_t latency_buf_size;
 } __attribute__((packed));
+struct cam_isp_sensor_dimension {
+  uint32_t width;
+  uint32_t height;
+  uint32_t measure_enabled;
+} __attribute__((packed));
+struct cam_isp_sensor_config {
+  struct cam_isp_sensor_dimension ppp_path;
+  struct cam_isp_sensor_dimension ipp_path;
+  struct cam_isp_sensor_dimension rdi_path[CAM_IFE_CSID_RDI_MAX];
+  uint32_t hbi;
+  uint32_t vbi;
+} __attribute__((packed));
 struct cam_isp_core_config {
   uint32_t version;
   uint32_t vid_ds16_r2pd;
@@ -330,6 +349,9 @@ struct cam_isp_vfe_out_config {
   uint32_t num_ports;
   uint32_t reserved;
   struct cam_isp_vfe_wm_config wm_config[1];
+};
+struct cam_isp_csid_epd_config {
+  uint32_t is_epd_supported;
 };
 #define CAM_ISP_ACQUIRE_COMMON_VER0 0x1000
 #define CAM_ISP_ACQUIRE_COMMON_SIZE_VER0 0x0
