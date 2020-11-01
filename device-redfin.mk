@@ -210,6 +210,13 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/bluetooth_power_limits_redfin_eu.csv:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_power_limits_EU.csv \
     $(LOCAL_PATH)/bluetooth_power_limits_redfin_jp.csv:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_power_limits_JP.csv
 
+# Build necessary packages for system
+PRODUCT_PACKAGES += \
+    libhidltransport \
+    libhwbinder \
+    libmediaplayerservice:32 \
+    libstagefright_httplive:32
+
 # Missing vendor properties
 PRODUCT_PRODUCT_PROPERTIES +=\
     drm.service.enabled=true \
@@ -219,11 +226,22 @@ PRODUCT_PRODUCT_PROPERTIES +=\
 
 # Build necessary packages for vendor
 PRODUCT_PACKAGES += \
+    android.hardware.sensors@2.0-ScopedWakelock.vendor \
+    chre \
     ese_spi_st:64 \
+    libavservices_minijail_vendor \
+    libbatching \
     libcodec2_vndk.vendor \
+    libcppbor.vendor:64 \
     libdisplayconfig \
     libdrm.vendor \
+    libgooglecamerahal.vendor \
+    libgooglecamerahalutils.vendor \
+    libhidltransport.vendor \
+    libhwbinder.vendor \
     libjson \
+    libkeymaster_messages.vendor:64 \
+    libkeymaster_portable.vendor:64 \
     libmedia_ecoservice.vendor \
     libnetfilter_conntrack:64 \
     libnfnetlink:64 \
@@ -233,9 +251,14 @@ PRODUCT_PACKAGES += \
     libnos_datagram_citadel:64 \
     libnosprotos:64 \
     libnos_transport:64 \
+    lib_profiler:64 \
+    libpuresoftkeymasterdevice.vendor:64 \
     libsensorndkbridge \
+    libsoft_attestation_cert.vendor:64 \
+    libteeui_hal_support.vendor:64 \
     libtinycompress \
     libtinyxml \
+    libwifi-hal:64 \
     libwifi-hal-qcom \
     nos_app_avb:64 \
     nos_app_identity:64 \
