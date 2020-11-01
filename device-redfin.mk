@@ -209,3 +209,17 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/bluetooth_power_limits_redfin_us.csv:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_power_limits_US.csv \
     $(LOCAL_PATH)/bluetooth_power_limits_redfin_eu.csv:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_power_limits_EU.csv \
     $(LOCAL_PATH)/bluetooth_power_limits_redfin_jp.csv:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_power_limits_JP.csv
+
+# Missing vendor properties
+PRODUCT_PRODUCT_PROPERTIES +=\
+    drm.service.enabled=true \
+    media.mediadrmservice.enable=true \
+    ro.hardware.egl=adreno \
+    ro.hardware.vulkan=adreno
+
+# Build necessary packages for vendor
+PRODUCT_PACKAGES += \
+    libdisplayconfig \
+    libjson \
+    libtinyxml \
+    libwifi-hal-qcom
