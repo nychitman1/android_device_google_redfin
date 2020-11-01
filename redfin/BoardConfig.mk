@@ -25,6 +25,12 @@ TARGET_KERNEL_SOURCE := kernel/google/redbull
 TARGET_KERNEL_CONFIG := redbull_defconfig
 BOARD_KERNEL_IMAGE_NAME := Image.lz4
 
+# vendor.img
+ifneq ($(PRODUCT_USE_DYNAMIC_PARTITIONS), true)
+BOARD_VENDORIMAGE_PARTITION_SIZE := 683552768
+endif
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+
 include device/google/redbull/BoardConfig-common.mk
 DEVICE_MANIFEST_FILE += device/google/redfin/manifest.xml
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += device/google/redfin/device_framework_matrix.xml
