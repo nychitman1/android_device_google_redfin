@@ -1,4 +1,4 @@
-# Copyright (C) 2018-2021 The Dirty Unicorns Project
+# Copyright (C) 2021 The Gooey Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,8 +21,8 @@
 # lines, aosp and du, hence its name.
 #
 
-# Include DU common configuration
-include vendor/du/config/common_full_phone.mk
+# Include Gooey common configuration
+include vendor/gooey/config/common_full_phone.mk
 
 # Inherit from those products. Most specific first.
 $(call inherit-product, device/google/redfin/aosp_redfin.mk)
@@ -31,7 +31,7 @@ $(call inherit-product, device/google/redfin/aosp_redfin.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 
-PRODUCT_NAME := du_redfin
+PRODUCT_NAME := gooey_redfin
 PRODUCT_DEVICE := redfin
 PRODUCT_BRAND := google
 PRODUCT_MODEL := Pixel 5
@@ -40,12 +40,12 @@ PRODUCT_SYSTEM_MANUFACTURER := Google
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
     PRODUCT_NAME="redfin" \
-    PRIVATE_BUILD_DESC="redfin-user 11 RQ1A.210205.004 7038034 release-keys"
+    PRIVATE_BUILD_DESC="redfin-user 11 RQ3A.210605.005 7349499 release-keys"
 
-BUILD_FINGERPRINT := "google/redfin/redfin:11/RQ1A.210205.004/7038034:user/release-keys"
+BUILD_FINGERPRINT := "google/redfin/redfin:11/RQ3A.210605.005/7349499:user/release-keys"
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.build.fingerprint=google/redfin/redfin:11/RQ1A.210205.004/7038034:user/release-keys
+    ro.build.fingerprint=google/redfin/redfin:11/RQ3A.210605.005/7349499:user/release-keys
 
 $(call inherit-product-if-exists, vendor/google/redfin/redfin-vendor.mk)
 $(call inherit-product-if-exists, vendor/pixelgapps/pixel-gapps.mk)
