@@ -244,7 +244,7 @@ PRODUCT_PACKAGES += \
     chre \
     ese_spi_st:64 \
     flp.conf \
-    libavservices_minijail_vendor:64 \
+    libavservices_minijail.vendor:64 \
     libcodec2_hidl@1.0.vendor:64 \
     libcodec2_vndk.vendor \
     libcppbor.vendor:64 \
